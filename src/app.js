@@ -10,15 +10,6 @@ app.use(cors());
 
 const repositories = [];
 
-function validateId(request, response, next){
-  const {id}= request.params;
-
-  if(!isUuid(id)){
-    return response.status(400).json({ error: 'Invalid uuid'});
-  }
-
-  next();
-}
 
 app.get("/repositories", (request, response) => {
   return response.json(repositories);
@@ -62,7 +53,7 @@ app.put("/repositories/:id", (request, response) => {
 
 }); //DONE
 
-app.delete("/repositories/:id", validateId, (request, response) => {
+app.delete("/repositories/:id", (request, response) => {
   const {id}= request.params;
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
